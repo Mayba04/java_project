@@ -2,9 +2,6 @@ package com.java_project.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.java_project.entities.CategoryEntity;
 import com.java_project.repositories.CategoryRepository;
@@ -12,6 +9,8 @@ import com.java_project.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @AllArgsConstructor
@@ -25,4 +24,16 @@ public class CategoryController {
         List<CategoryEntity> list = categoryRepository.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
     } 
+
+    @PostMapping
+    public ResponseEntity<CategoryEntity> addCategory(@RequestBody CategoryEntity category) {
+        CategoryEntity savedCategory = categoryRepository.save(category);
+        return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
+    }
+
+   @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+        categoryRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
