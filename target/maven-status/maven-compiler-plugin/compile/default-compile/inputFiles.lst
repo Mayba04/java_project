@@ -1,4 +1,11 @@
 D:\Step\Java\java_project\src\main\java\com\java_project\Main.java
+D:\Step\Java\java_project\src\main\java\com\java_project\mapper\CategoryMapper.java
 D:\Step\Java\java_project\src\main\java\com\java_project\repositories\CategoryRepository.java
 D:\Step\Java\java_project\src\main\java\com\java_project\controller\CategoryController.java
 D:\Step\Java\java_project\src\main\java\com\java_project\entities\CategoryEntity.java
+D:\Step\Java\java_project\src\main\java\com\java_project\storage\FileSaveFormat.java
+D:\Step\Java\java_project\src\main\java\com\java_project\storage\FileSystemStorageService.java
+D:\Step\Java\java_project\src\main\java\com\java_project\storage\StorageService.java
+D:\Step\Java\java_project\src\main\java\com\java_project\storage\StorageProperties.java
+D:\Step\Java\java_project\src\main\java\com\java_project\dto\CategoryItemDTO.java
+D:\Step\Java\java_project\src\main\java\com\java_project\dto\CategoryCreateDTO.java
