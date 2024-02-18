@@ -7,6 +7,7 @@ import com.java_project.entities.CategoryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -23,10 +24,10 @@ public interface CategoryMapper {
         if (editDTO == null) {
             return null;
         }
-    
         entity.setName(editDTO.getName());
         entity.setDescription(editDTO.getDescription());
     
         return entity;
     }
+
 }

@@ -38,4 +38,16 @@ public class FileSystemStorageService implements StorageService {
         }
         return randomFileName;
     }
+
+    @Override
+    public void delete(String filepath) throws IOException {
+        int[] sizes = {32, 150, 300, 600, 1200};
+        for (int size : sizes) {
+            Path filePath = Paths.get(rootLocation.toString(), size + "_" + filepath);
+            Files.deleteIfExists(filePath);
+        }
+    }
+
+    
+
 }
