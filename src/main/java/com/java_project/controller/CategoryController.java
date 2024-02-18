@@ -2,6 +2,7 @@ package com.java_project.controller;
 
 import lombok.AllArgsConstructor;
 import com.java_project.dto.CategoryCreateDTO;
+import com.java_project.dto.CategoryEditDTO;
 import com.java_project.dto.CategoryItemDTO;
 import com.java_project.entities.CategoryEntity;
 import com.java_project.mapper.CategoryMapper;
@@ -11,9 +12,6 @@ import com.java_project.storage.StorageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,6 +58,30 @@ public class CategoryController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
         catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryItemDTO> updateCategory(
+            @PathVariable Integer id,
+            @RequestBody CategoryEditDTO dto) {
+        try {
+            CategoryEntity existingCategory = categoryRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+
+            // Додайте вивід для перевірки даних перед мапінгом
+            System.out.println("Before mapping: " + existingCategory);
+
+            categoryMapper.updateCategoryEntityFromEditDTO(dto, existingCategory);
+            // Додайте вивід після мапінгу для перевірки даних
+            System.out.println("After mapping: " + existingCategory);
+
+            categoryRepository.save(existingCategory);
+
+            var result = categoryMapper.categoryItemDTO(existingCategory);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

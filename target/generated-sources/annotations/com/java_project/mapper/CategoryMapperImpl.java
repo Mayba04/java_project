@@ -1,6 +1,7 @@
 package com.java_project.mapper;
 
 import com.java_project.dto.CategoryCreateDTO;
+import com.java_project.dto.CategoryEditDTO;
 import com.java_project.dto.CategoryItemDTO;
 import com.java_project.entities.CategoryEntity;
 import java.time.format.DateTimeFormatter;
@@ -65,4 +66,12 @@ public class CategoryMapperImpl implements CategoryMapper {
 
         return categoryEntity;
     }
+
+    @Override
+    public void updateCategoryEntityFromEditDTO(CategoryEditDTO editDTO, CategoryEntity entity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateCategoryEntityFromEditDTO'");
+    }
+
+    
 }
