@@ -24,14 +24,14 @@ public class Main {
 @Bean
     CommandLineRunner runner(CategoryRepository repository, StorageService storageService) {
         return args -> {
-            storageService.init();
+            // storageService.init();
 
-            CategoryEntity category = new CategoryEntity();
-            category.setName("Одяг");
-            category.setImage("1.jpg");
-            category.setDescription("Для дорослих людей");
-            category.setCreationTime(LocalDateTime.now());
-            repository.save(category);
+            // CategoryEntity category = new CategoryEntity();
+            // category.setName("Одяг");
+            // category.setImage("1.jpg");
+            // category.setDescription("Для дорослих людей");
+            // category.setCreationTime(LocalDateTime.now());
+            // repository.save(category);
         };
     }
 }

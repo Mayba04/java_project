@@ -34,7 +34,7 @@ public class CategoryController {
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(value="/create")
     public ResponseEntity<CategoryEntity> addCategory(@RequestBody CategoryEntity category) {
         CategoryEntity savedCategory = categoryRepository.save(category);
         return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
@@ -46,7 +46,7 @@ public class CategoryController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping(value="/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value="", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CategoryItemDTO> create(@ModelAttribute CategoryCreateDTO dto) {
         try {
             var entity = categoryMapper.categoryEntityByCategoryCreateDTO(dto);

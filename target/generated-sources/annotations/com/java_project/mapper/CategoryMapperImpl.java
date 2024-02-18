@@ -66,12 +66,5 @@ public class CategoryMapperImpl implements CategoryMapper {
 
         return categoryEntity;
     }
-
-    @Override
-    public void updateCategoryEntityFromEditDTO(CategoryEditDTO editDTO, CategoryEntity entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateCategoryEntityFromEditDTO'");
-    }
-
     
 }
