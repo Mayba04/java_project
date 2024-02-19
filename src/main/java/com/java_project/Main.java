@@ -6,12 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import com.java_project.entities.CategoryEntity;
 import com.java_project.repositories.CategoryRepository;
 import com.java_project.storage.StorageProperties;
 import com.java_project.storage.StorageService;
-
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)

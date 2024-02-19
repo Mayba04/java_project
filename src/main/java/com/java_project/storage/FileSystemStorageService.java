@@ -49,5 +49,16 @@ public class FileSystemStorageService implements StorageService {
     }
 
     
+    @Override
+    public void deleteImage(String fileName) throws IOException {
+        Path filePath = rootLocation.resolve(fileName);
+        int[] sizes = {32, 150, 300, 600, 1200};
+        for (var size : sizes) {
+            Path fileToDelete = filePath.resolveSibling(size + "_" + fileName);
+            Files.deleteIfExists(fileToDelete);
+        }
+    }
+
+    
 
 }

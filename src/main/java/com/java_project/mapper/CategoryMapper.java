@@ -7,7 +7,6 @@ import com.java_project.entities.CategoryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -29,5 +28,8 @@ public interface CategoryMapper {
     
         return entity;
     }
+
+    @Mapping(target = "image", ignore = true)
+    CategoryEntity categoryEditDto(CategoryEditDTO dto);
 
 }
