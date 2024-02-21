@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/categories")
