@@ -6,15 +6,17 @@ import com.java_project.dto.CategoryEditDTO;
 import com.java_project.dto.CategoryItemDTO;
 import com.java_project.mapper.CategoryMapper;
 import com.java_project.repositories.CategoryRepository;
+import com.java_project.services.CategoryService;
 import com.java_project.storage.FileSaveFormat;
 import com.java_project.storage.StorageService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -24,11 +26,12 @@ public class CategoryController {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
     private final StorageService storageService;
+    private final CategoryService categoryService;
 
     //HttpGet - аналог ASP.NET - отримання інформації
     @GetMapping
-    public ResponseEntity<List<CategoryItemDTO>> index() {
-        var model = categoryMapper.categoriesListItemDTO(categoryRepository.findAll());
+    public ResponseEntity<Page<CategoryItemDTO>> index(Pageable pageable) {
+        var model = categoryService.getAll(pageable);
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
@@ -47,6 +50,7 @@ public class CategoryController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
     @PutMapping(value="", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CategoryItemDTO> edit(@ModelAttribute CategoryEditDTO model) {
         var old = categoryRepository.findById(model.getId()).orElse(null);
@@ -88,7 +92,6 @@ public class CategoryController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
     @GetMapping("/{categoryId}")
     public ResponseEntity<CategoryItemDTO> getById(@PathVariable int categoryId) {
         var entity = categoryRepository.findById(categoryId).orElse(null);

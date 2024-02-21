@@ -10,7 +10,7 @@ import com.java_project.storage.StorageProperties;
 
 @Configuration
 @AllArgsConstructor
-public class CustomWebConfig implements WebMvcConfigurer {
+public class CorsConfig implements WebMvcConfigurer {
     private final StorageProperties storageProperties;
 
     @Override
@@ -25,8 +25,7 @@ public class CustomWebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        String location = storageProperties.getLocation();
-        registry.addResourceHandler("/"+location+"/")
-                .addResourceLocations("file:"+location+"/");
+        registry.addResourceHandler("/"+storageProperties.getLocation()+"/**")
+                .addResourceLocations("file:"+storageProperties.getLocation()+"/");
     }
 }
