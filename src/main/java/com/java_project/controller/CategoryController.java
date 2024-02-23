@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import com.java_project.dto.CategoryCreateDTO;
 import com.java_project.dto.CategoryEditDTO;
 import com.java_project.dto.CategoryItemDTO;
+import com.java_project.entities.CategoryEntity;
 import com.java_project.mapper.CategoryMapper;
 import com.java_project.repositories.CategoryRepository;
 import com.java_project.services.CategoryService;
@@ -11,6 +12,7 @@ import com.java_project.storage.FileSaveFormat;
 import com.java_project.storage.StorageService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,21 @@ public class CategoryController {
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<CategoryEntity>> search(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        Page<CategoryEntity> searchResult = categoryService.search(keyword, page, size);
+
+        if (searchResult.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(searchResult, HttpStatus.OK);
+    }
+        
     @PostMapping(value="", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CategoryItemDTO> create(@ModelAttribute CategoryCreateDTO dto) {
         try {
