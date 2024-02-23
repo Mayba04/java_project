@@ -28,7 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Page<CategoryEntity> search(String keyword, int page, int size) {
-        return categoryRepository.findByName(keyword, PageRequest.of(page, size));
+    public Page<CategoryItemDTO> searchByName(String name, Pageable pageable) {
+        Page<CategoryEntity> categories = categoryRepository.findByNameContainingIgnoreCase(name, pageable);
+        return categories.map(categoryMapper::categoryItemDTO);
     }
 }

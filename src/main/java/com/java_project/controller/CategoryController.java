@@ -39,18 +39,9 @@ public class CategoryController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<CategoryEntity>> search(
-            @RequestParam String keyword,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
-
-        Page<CategoryEntity> searchResult = categoryService.search(keyword, page, size);
-
-        if (searchResult.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(searchResult, HttpStatus.OK);
+    public ResponseEntity<Page<CategoryItemDTO>> searchByName(@RequestParam(required = false) String name, Pageable pageable) {
+        Page<CategoryItemDTO> categories = categoryService.searchByName(name, pageable);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
         
     @PostMapping(value="", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
