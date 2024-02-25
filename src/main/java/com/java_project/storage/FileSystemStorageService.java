@@ -2,6 +2,7 @@ package com.java_project.storage;
 
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -15,9 +16,11 @@ import java.util.UUID;
 @Service
 public class FileSystemStorageService implements StorageService {
     private final Path rootLocation;
+     private final RestTemplate restTemplate;
 
-    public FileSystemStorageService(StorageProperties properties) {
+    public FileSystemStorageService(StorageProperties properties, RestTemplate restTemplate) {
         this.rootLocation = Paths.get(properties.getLocation());
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -25,6 +28,7 @@ public class FileSystemStorageService implements StorageService {
         if(!Files.exists(rootLocation))
             Files.createDirectory(rootLocation);
     }
+
 
     @Override
     public String SaveImage(MultipartFile file, FileSaveFormat format) throws IOException {
@@ -56,6 +60,34 @@ public class FileSystemStorageService implements StorageService {
         for (var size : sizes) {
             Path fileToDelete = filePath.resolveSibling(size + "_" + fileName);
             Files.deleteIfExists(fileToDelete);
+        }
+    }
+
+    @Override
+    public String saveImageFromUrl(String imageUrl, FileSaveFormat format) {
+        try {
+            byte[] originalImageBytes = restTemplate.getForObject(imageUrl, byte[].class);
+    
+            if (originalImageBytes == null || originalImageBytes.length == 0) {
+                // Обробка помилки, якщо не вдалося отримати зображення
+                return "Failed to fetch original image from URL";
+            }
+    
+            String ext = format.name().toLowerCase();
+            String randomFileName = UUID.randomUUID().toString() + "." + ext;
+            int[] sizes = {32, 150, 300, 600, 1200};
+    
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(originalImageBytes);
+            var bufferedImage = ImageIO.read(byteArrayInputStream);
+    
+            for (var size : sizes) {
+                String fileSave = rootLocation.toString() + "/" + size + "_" + randomFileName;
+                Thumbnails.of(bufferedImage).size(size, size).outputFormat(ext).toFile(fileSave);
+            }
+    
+            return randomFileName;
+        } catch (IOException e) {
+            return "Failed to store image: " + e.getMessage();
         }
     }
 
