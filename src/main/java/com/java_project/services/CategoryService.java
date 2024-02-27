@@ -1,6 +1,6 @@
 package com.java_project.services;
 
-import com.java_project.dto.CategoryItemDTO;
+import com.java_project.dto.Category.CategoryItemDTO;
 import com.java_project.entities.CategoryEntity;
 
 import org.springframework.data.domain.Page;

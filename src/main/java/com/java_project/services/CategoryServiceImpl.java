@@ -1,7 +1,8 @@
 package com.java_project.services;
 
 import lombok.AllArgsConstructor;
-import com.java_project.dto.CategoryItemDTO;
+
+import com.java_project.dto.Category.CategoryItemDTO;
 import com.java_project.entities.CategoryEntity;
 import com.java_project.mapper.CategoryMapper;
 import com.java_project.repositories.CategoryRepository;

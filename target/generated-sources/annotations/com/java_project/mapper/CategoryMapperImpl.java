@@ -1,8 +1,8 @@
 package com.java_project.mapper;
 
-import com.java_project.dto.CategoryCreateDTO;
-import com.java_project.dto.CategoryEditDTO;
-import com.java_project.dto.CategoryItemDTO;
+import com.java_project.dto.Category.CategoryCreateDTO;
+import com.java_project.dto.Category.CategoryEditDTO;
+import com.java_project.dto.Category.CategoryItemDTO;
 import com.java_project.entities.CategoryEntity;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

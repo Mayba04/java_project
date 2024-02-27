@@ -1,4 +1,4 @@
-package com.java_project.dto;
+package com.java_project.dto.Category;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
