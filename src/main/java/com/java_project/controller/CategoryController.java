@@ -11,17 +11,18 @@ import com.java_project.repositories.CategoryRepository;
 import com.java_project.services.CategoryService;
 import com.java_project.storage.FileSaveFormat;
 import com.java_project.storage.StorageService;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;  // Correct import for List
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5173/product/create"})
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/categories")
@@ -43,6 +44,12 @@ public class CategoryController {
     public ResponseEntity<Page<CategoryItemDTO>> searchByName(@RequestParam(required = false) String name, Pageable pageable) {
         Page<CategoryItemDTO> categories = categoryService.searchByName(name, pageable);
         return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
+   @GetMapping("/getAllCategories")
+    public ResponseEntity<List<CategoryItemDTO>> getAllCategories() {
+        var model = categoryMapper.categoriesListItemDTO(categoryRepository.findAll());
+        return new ResponseEntity<>(model, HttpStatus.OK);
     }
         
     @PostMapping(value="", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
