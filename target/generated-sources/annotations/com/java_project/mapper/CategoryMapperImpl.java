@@ -3,6 +3,7 @@ package com.java_project.mapper;
 import com.java_project.dto.Category.CategoryCreateDTO;
 import com.java_project.dto.Category.CategoryEditDTO;
 import com.java_project.dto.Category.CategoryItemDTO;
+import com.java_project.dto.common.SelectItemDTO;
 import com.java_project.entities.CategoryEntity;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-02-19T20:34:30+0200",
+    date = "2024-03-04T19:07:48+0200",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.10 (Eclipse Adoptium)"
 )
 @Component
@@ -80,5 +81,33 @@ public class CategoryMapperImpl implements CategoryMapper {
         categoryEntity.setDescription( dto.getDescription() );
 
         return categoryEntity;
+    }
+
+    @Override
+    public SelectItemDTO selectItemCategory(CategoryEntity category) {
+        if ( category == null ) {
+            return null;
+        }
+
+        SelectItemDTO selectItemDTO = new SelectItemDTO();
+
+        selectItemDTO.setId( category.getId() );
+        selectItemDTO.setName( category.getName() );
+
+        return selectItemDTO;
+    }
+
+    @Override
+    public List<SelectItemDTO> listSelectItemCategory(List<CategoryEntity> categories) {
+        if ( categories == null ) {
+            return null;
+        }
+
+        List<SelectItemDTO> list = new ArrayList<SelectItemDTO>( categories.size() );
+        for ( CategoryEntity categoryEntity : categories ) {
+            list.add( selectItemCategory( categoryEntity ) );
+        }
+
+        return list;
     }
 }

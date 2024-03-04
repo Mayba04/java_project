@@ -3,11 +3,11 @@ package com.java_project.mapper;
 import com.java_project.dto.Category.CategoryCreateDTO;
 import com.java_project.dto.Category.CategoryEditDTO;
 import com.java_project.dto.Category.CategoryItemDTO;
+import com.java_project.dto.common.SelectItemDTO;
 import com.java_project.entities.CategoryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -32,4 +32,8 @@ public interface CategoryMapper {
     @Mapping(target = "image", ignore = true)
     CategoryEntity categoryEditDto(CategoryEditDTO dto);
 
+    SelectItemDTO selectItemCategory(CategoryEntity category);
+    List<SelectItemDTO> listSelectItemCategory(List<CategoryEntity> categories);
+
+    
 }

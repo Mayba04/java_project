@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import com.java_project.dto.Category.CategoryCreateDTO;
 import com.java_project.dto.Category.CategoryEditDTO;
 import com.java_project.dto.Category.CategoryItemDTO;
-import com.java_project.entities.CategoryEntity;
+import com.java_project.dto.common.SelectItemDTO;
 import com.java_project.mapper.CategoryMapper;
 import com.java_project.repositories.CategoryRepository;
 import com.java_project.services.CategoryService;
@@ -44,6 +44,12 @@ public class CategoryController {
     public ResponseEntity<Page<CategoryItemDTO>> searchByName(@RequestParam(required = false) String name, Pageable pageable) {
         Page<CategoryItemDTO> categories = categoryService.searchByName(name, pageable);
         return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
+    @GetMapping("/selectList")
+    public ResponseEntity<List<SelectItemDTO>> selectList() {
+        var list = categoryService.getSelectList();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
    @GetMapping("/getAllCategories")
