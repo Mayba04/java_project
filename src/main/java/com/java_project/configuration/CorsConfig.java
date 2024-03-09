@@ -1,4 +1,4 @@
-package com.java_project.cofiguration;
+package com.java_project.configuration;
 
 import lombok.AllArgsConstructor;
 
