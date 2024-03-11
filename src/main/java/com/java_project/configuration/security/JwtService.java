@@ -61,13 +61,20 @@ public class JwtService {
         return claims.getSubject().split(",")[0]; //з токена бере перший елемент Id
     }
     // з токена можна витягнути username юзера
+   
     public String getUsername(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(token)
+                    .getBody();
 
-        return claims.getSubject().split(",")[1];
+            return claims.getSubject().split(",")[1];
+        }
+        catch(Exception ex) {
+            return null;
+        }
+
     }
     // метод повертає дату до якої живе токен
     public Date getExpirationDate(String token) {
