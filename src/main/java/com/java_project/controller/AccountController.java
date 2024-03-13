@@ -3,6 +3,7 @@ package com.java_project.controller;
 import lombok.RequiredArgsConstructor;
 import com.java_project.dto.account.AuthResponseDto;
 import com.java_project.dto.account.LoginDto;
+import com.java_project.dto.account.UserRegistrationDto;
 import com.java_project.services.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,16 @@ public class AccountController {
         }
         catch (Exception ex) {
             return ResponseEntity.badRequest().body("Невірно введені дані! Спробуйте ще раз!");
+        }
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<Object> register(@RequestBody UserRegistrationDto dto) {
+        try {
+            service.registerUser(dto);
+            return ResponseEntity.ok("Користувача успішно зареєстровано!");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Виникла помилка під час реєстрації користувача!");
         }
     }
 }
