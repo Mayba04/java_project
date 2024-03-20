@@ -11,10 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.java_project.storage.StorageProperties;
 
+
 @Configuration
 @AllArgsConstructor
 public class CorsConfig implements WebMvcConfigurer {
     private final StorageProperties storageProperties;
+
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
