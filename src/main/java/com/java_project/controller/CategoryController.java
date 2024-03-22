@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;  // Correct import for List
 
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5173/product/create"})
+@CrossOrigin(origins = {"http://localhost:5173"})
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/categories")

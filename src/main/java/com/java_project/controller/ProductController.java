@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("api/products")
 public class ProductController {
     private final ProductService productService;
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<ProductItemDTO>> index() {
         return new ResponseEntity<>(productService.get(), HttpStatus.OK);
     }
@@ -53,7 +53,7 @@ public class ProductController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("")
     public ResponseEntity<ProductItemDTO> edit(@RequestBody ProductEditDTO model) {
         var result = productService.edit(model);
         return new ResponseEntity<>(result, HttpStatus.OK);
